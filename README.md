@@ -12,7 +12,6 @@
 
 This is a **production-quality** memory monitoring framework designed for the ATmega328P microcontroller. It provides real-time diagnostics of SRAM usage, stack growth, heap fragmentation, and collision detection—all with minimal runtime overhead.
 
-**This is NOT a hobby Arduino sketch.** It's professional embedded firmware following industry best practices.
 
 ---
 
