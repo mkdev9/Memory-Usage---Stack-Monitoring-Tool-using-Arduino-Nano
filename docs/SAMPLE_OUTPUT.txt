@@ -1,0 +1,204 @@
+================================================================================
+  ATmega328P Memory Monitoring Framework
+  Production-Quality Runtime Diagnostics
+================================================================================
+
+Memory monitor initialized
+Stack sentinel pattern filled
+
+=== BASELINE MEASUREMENTS ===
+
+[MEM DIAGNOSTICS]
+SRAM Total:    2048 bytes
+Static (.data): 12 bytes
+Static (.bss):  178 bytes
+Heap Used:     0 bytes (0 allocs, 0 frees)
+Stack Current: 64 bytes
+Stack Peak:    64 bytes
+Free RAM:      1794 bytes
+Fragmentation: 0.0%
+Collision:     OK
+
+
+=== Test 1: Recursive Stack Growth ===
+  Recursion depth: 1, Stack usage: 98 bytes
+  Recursion depth: 2, Stack usage: 134 bytes
+  Recursion depth: 3, Stack usage: 170 bytes
+  Recursion depth: 4, Stack usage: 206 bytes
+  Recursion depth: 5, Stack usage: 242 bytes
+  Recursion depth: 6, Stack usage: 278 bytes
+  Recursion depth: 7, Stack usage: 314 bytes
+  Recursion depth: 8, Stack usage: 350 bytes
+  Recursion depth: 9, Stack usage: 386 bytes
+  Recursion depth: 10, Stack usage: 422 bytes
+
+[MEM DIAGNOSTICS]
+SRAM Total:    2048 bytes
+Static (.data): 12 bytes
+Static (.bss):  178 bytes
+Heap Used:     0 bytes (0 allocs, 0 frees)
+Stack Current: 98 bytes
+Stack Peak:    422 bytes
+Free RAM:      1758 bytes
+Fragmentation: 0.0%
+Collision:     OK
+
+
+=== Heap Fragmentation Test ===
+Allocating 8 blocks...
+  Heap used: 240 bytes
+Freeing alternating blocks (1, 3, 5, 7)...
+  Heap used: 64 bytes
+  Fragmentation: 12.5%
+Allocating new blocks...
+  Heap used: 128 bytes
+Cleaning up...
+  Final heap used: 0 bytes
+
+[MEM DIAGNOSTICS]
+SRAM Total:    2048 bytes
+Static (.data): 12 bytes
+Static (.bss):  178 bytes
+Heap Used:     0 bytes (8 allocs, 8 frees)
+Stack Current: 82 bytes
+Stack Peak:    422 bytes
+Free RAM:      1788 bytes
+Fragmentation: 0.0%
+Collision:     OK
+
+
+=== Large Stack Buffer Test ===
+  Large buffer allocated: 256 bytes
+  Current stack usage: 348 bytes
+  Free RAM: 1510 bytes
+
+[MEM DIAGNOSTICS]
+SRAM Total:    2048 bytes
+Static (.data): 12 bytes
+Static (.bss):  178 bytes
+Heap Used:     0 bytes (8 allocs, 8 frees)
+Stack Current: 82 bytes
+Stack Peak:    422 bytes
+Free RAM:      1788 bytes
+Fragmentation: 0.0%
+Collision:     OK
+
+
+=== Combined Heap + Stack Stress ===
+Allocated heap blocks: 128 + 96 + 64 = 288 bytes
+  Heap used: 288 bytes
+  Free RAM before recursion: 1500 bytes
+
+Starting recursion with heap allocated...
+  Recursion depth: 1, Stack usage: 112 bytes
+  Recursion depth: 2, Stack usage: 148 bytes
+  Recursion depth: 3, Stack usage: 184 bytes
+  Recursion depth: 4, Stack usage: 220 bytes
+  Recursion depth: 5, Stack usage: 256 bytes
+  Recursion depth: 6, Stack usage: 292 bytes
+  Recursion depth: 7, Stack usage: 328 bytes
+  Recursion depth: 8, Stack usage: 364 bytes
+  Recursion depth: 9, Stack usage: 400 bytes
+  Recursion depth: 10, Stack usage: 436 bytes
+
+  Free RAM after recursion: 1212 bytes
+Heap blocks freed
+
+[MEM DIAGNOSTICS]
+SRAM Total:    2048 bytes
+Static (.data): 12 bytes
+Static (.bss):  178 bytes
+Heap Used:     0 bytes (11 allocs, 11 frees)
+Stack Current: 96 bytes
+Stack Peak:    436 bytes
+Free RAM:      1774 bytes
+Fragmentation: 0.0%
+Collision:     OK
+
+
+=== Entering Continuous Monitoring Mode ===
+Diagnostics printed every 2 seconds
+
+--- Periodic Status ---
+
+[MEM DIAGNOSTICS]
+SRAM Total:    2048 bytes
+Static (.data): 12 bytes
+Static (.bss):  178 bytes
+Heap Used:     0 bytes (11 allocs, 11 frees)
+Stack Current: 72 bytes
+Stack Peak:    436 bytes
+Free RAM:      1798 bytes
+Fragmentation: 0.0%
+Collision:     OK
+
+
+--- Periodic Status ---
+
+[MEM DIAGNOSTICS]
+SRAM Total:    2048 bytes
+Static (.data): 12 bytes
+Static (.bss):  178 bytes
+Heap Used:     32 bytes (12 allocs, 11 frees)
+Stack Current: 72 bytes
+Stack Peak:    436 bytes
+Free RAM:      1766 bytes
+Fragmentation: 3.1%
+Collision:     OK
+
+
+--- Periodic Status ---
+
+[MEM DIAGNOSTICS]
+SRAM Total:    2048 bytes
+Static (.data): 12 bytes
+Static (.bss):  178 bytes
+Heap Used:     0 bytes (12 allocs, 12 frees)
+Stack Current: 72 bytes
+Stack Peak:    436 bytes
+Free RAM:      1798 bytes
+Fragmentation: 0.0%
+Collision:     OK
+
+
+================================================================================
+EXAMPLE: Collision Warning Scenario
+================================================================================
+
+=== Combined Heap + Stack Stress (Extreme) ===
+Allocated heap blocks: 512 + 384 + 256 = 1152 bytes
+  Heap used: 1152 bytes
+  Free RAM before recursion: 646 bytes
+
+Starting recursion with heap allocated...
+  Recursion depth: 1, Stack usage: 112 bytes
+  Recursion depth: 2, Stack usage: 148 bytes
+  Recursion depth: 3, Stack usage: 184 bytes
+  Recursion depth: 4, Stack usage: 220 bytes
+  Recursion depth: 5, Stack usage: 256 bytes
+  Recursion depth: 6, Stack usage: 292 bytes
+  Recursion depth: 7, Stack usage: 328 bytes
+  Recursion depth: 8, Stack usage: 364 bytes
+  Recursion depth: 9, Stack usage: 400 bytes
+  Recursion depth: 10, Stack usage: 436 bytes
+  Recursion depth: 11, Stack usage: 472 bytes
+  Recursion depth: 12, Stack usage: 508 bytes
+
+  Free RAM after recursion: 102 bytes
+  *** COLLISION WARNING TRIGGERED ***
+
+[MEM DIAGNOSTICS]
+SRAM Total:    2048 bytes
+Static (.data): 12 bytes
+Static (.bss):  178 bytes
+Heap Used:     1152 bytes (3 allocs, 0 frees)
+Stack Current: 96 bytes
+Stack Peak:    508 bytes
+Free RAM:      102 bytes
+Fragmentation: 0.0%
+Collision:     *** WARNING ***
+
+
+================================================================================
+END OF SAMPLE OUTPUT
+================================================================================

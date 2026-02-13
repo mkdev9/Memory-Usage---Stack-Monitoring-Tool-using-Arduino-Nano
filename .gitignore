@@ -1,0 +1,32 @@
+# Build artifacts
+build/
+*.o
+*.elf
+*.hex
+*.map
+*.lst
+*.eep
+*.lss
+*.sym
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Compiled binaries
+*.bin
+*.out
+
+# Debug files
+*.dmp
+*.core
+
+# AVR specific
+*.srec
