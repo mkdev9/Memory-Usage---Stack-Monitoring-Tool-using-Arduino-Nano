@@ -244,12 +244,6 @@ Professional Makefile with:
 
 ---
 
-## 📝 License
-
-MIT License - See LICENSE file for details
-
----
-
 ## 🤝 Contributing
 
 This is a reference implementation for embedded systems  and professional use.
@@ -259,9 +253,3 @@ Contributions welcome:
 - Performance improvements
 - Additional test cases
 - Documentation enhancements
-
----
-
-## 📧 Contact
-
-For questions or issues, please open a GitHub issue.
